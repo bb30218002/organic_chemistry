@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<style>
+    
+      
+    .anime{
+       animation-timing-function: ease-in-out;
+       animation-iteration-count: infinite;
+       animation-direction:alternate;
+       animation-duration: 2.0s;
+    }
+
+    h1{
+        text-align: center;
+        color: rgb(255, 255, 249);
+        text-shadow: 2px 1px 3px black;
+        font-size: 70px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    P{
+        font-size: 30px;
+        display:block;
+        margin-left:auto;
+        margin-right: auto;
+        margin-top: 80px;
+        text-align: center;
+        border-radius: 5px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font: bold;
+        text-shadow: 1px 1px 1px black;
+        color:rgb(0, 21, 255);
+    }
+
+    .bt{
+        cursor: pointer;
+    }
+
+    .bt:hover{
+        background-color: rgb(249, 255, 204);
+        animation-name: btn_move;
+    }
+
+
+    @keyframes btn_move{
+        0%{
+            transform: scale(1.1, 1.1);
+        }
+
+        100%{
+            transform: scale(1.1, 1.1);
+        }
+    }
+
+
+    .benzen{
+        width: 60px;
+        margin-right: 8px;
+        margin-left: 8px;
+        animation-name: anime_rotate;
+    }
+
+    .anime_title{
+        animation-name: anime_scale;
+    }
+
+    @keyframes anime_scale{
+        0%{
+            transform: scale(0.95, 0.95);
+        }
+
+        100%{
+            transform: scale(1.0, 1.0);
+        }
+    }
+
+    @keyframes anime_A{
+            0%{
+                transform: translate(0, 0px);
+            }
+            100%{
+                transform: translate(0, 60px);
+            }
+            
+          
+    }
+
+    @keyframes anime_rotate{
+        0%{
+            transform: rotate(0deg);
+        }
+
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+
+</style>
+<body>
+    <h1 class="anime anime_title"><img class = 'benzen' src="web_img\\benzen.png" alt="">有機化学演習<img class = 'benzen' src="web_img\\benzen.png" alt=""></h1>
+    <P class = 'col-9 border anime bt '>人名反応 (３０問)</P>
+    <P class = 'col-9 border anime bt '>応用有機 (３０問)</P>
+    <P class = 'col-9 border anime bt '>合成パズル(３０問)</P>
+
+
+
+    <script src="js/menu.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

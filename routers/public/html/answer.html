@@ -69,10 +69,27 @@
         position: relative;
         left:20%
     }
-    html{
+    @media screen and (max-width: 480px) {
+        .scheme{
+            width:520px;
+            height: 120px;
+            position: relative;
+            right: 100px;
+        }
+        h4{
+            font-size: larger;
+        }
+        .sc_display{
+            background-color: rgb(255, 255, 255);
+            border-radius: 15px;
+            box-shadow: none;
+        }    
+    }
+    html,body{
         overflow-x: hidden;
         overflow-y: auto;
     }
+
 </style>
 <body>
     <div id="container"></div>

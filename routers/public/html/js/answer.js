@@ -16,14 +16,13 @@ const get_users_score = async () => {
     container.insertAdjacentHTML("beforebegin", your_score);
 
 
-    console.log(data_arr);
 
     data_arr.map((data) => {
 
         const quesNo = data.question;
         const ans_idx = data.answer_idx;
         const reaction_name = data.name_reaction;
-        const scheme = data.scheme_path;
+        const scheme = data.scheme;
         const answer = data.selections[ans_idx];
         const url = data.url;
 
@@ -44,9 +43,16 @@ const get_users_score = async () => {
 
 }
 
+const window_width = window.innerWidth;
+
 function each_section_html(h1, sc_img, ans_img, url){
     const elements = [`<h2 class="name mt-5 mb-3">${h1}</h2>`, `<div class="sc_display mb-1"><img src= "${sc_img}" class="scheme">`, `<div class="correct border col-5"><img src= "${ans_img}"></div>`, `<div onclick='window.open("${url}")' class="mb-3 mt-3 col-2 mb-2 mr-2 btn btn-primary page" >反応の詳細</div></div>`];
-    return elements.reduce((ele1,ele2) => {return ele1 + ele2});
+    const elementNo2 = [`<h4 class="name mt-2 mb-2">${h1}</h4>`, `<div class="sc_display border-dark mr-2 col-12"><img src= "${sc_img}" class="scheme">`, `<div class="correct border col-6"><img src= "${ans_img}" class="col-12"></div>`, `<div onclick='window.open("${url}")' class="mb-3 mt-3 col-6 mb-2 mr-2 btn btn-primary page" >反応の詳細</div></div>`];
+    if (window_width > 480){
+        return elements.reduce((ele1,ele2) => {return ele1 + ele2});       
+    } else {
+        return elementNo2.reduce((ele1,ele2) => {return ele1 + ele2});  
+    }
 }
 
 function open_url (url) {

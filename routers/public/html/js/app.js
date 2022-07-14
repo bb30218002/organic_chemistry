@@ -1,10 +1,7 @@
 // 要素の取得
 const target = document.getElementById("container");
-const btn_target = document.getElementById("btn_target");
-const class_btn = document.getElementsByClassName("btn");
+const class_btn = document.getElementsByClassName("bottom_btn");
 const select = document.getElementsByClassName("sel");
-
-
 
 const range = (k) => {
     return Array.from({length: k}, (_, idx) => idx);
@@ -15,10 +12,8 @@ const range_empty = (k) => {
 }
 
 const parse_array = (array) => {
-    return array.filter((val) => {return !null});
+    return array.filter((_) => {return !null});
 } 
-
-
 
 
 // 選択肢のマーク及び、解答インデックスの出力
@@ -73,26 +68,13 @@ function scoring(user_answer, answer_box){
 }
 
 
-function createHTML(scheme, select_array, index){
+function createHTML(scheme, select_array, index, sentence){
 
-    let h3_1 = `<P><h4 class = 'sentence'><span class='ques_No'>Question${index + 1}:</span> Which is main product A ?</h4></P>`;
-    const ques_5 = `<P><h4 class = 'sentence'><span class='ques_No'>Question${index + 1}:</span> Which is correct as functional group X ?</h4></P>`;
-    const ques_13 =  `<P><h4 class = 'sentence'><span class='ques_No'>Question${index + 1}:</span> Which is the wrong intermediate in this reaction?</h4></P>`
+    let h3_1 = `<P><h4 class = 'sentence'><span class='ques_No'>Question${index + 1}:</span>${sentence}</h4></P>`;
 
     let select = select_array.reduce(function(x,y){
         return x + y;
     });
-
-    if(index === 5){
-
-        h3_1 = ques_5;
-
-    }else if(index === 13){
-
-        h3_1 = ques_13;
-
-    }
-
     return h3_1 + scheme + "<div class = 'col-9 sel_place '>"+select+"</div>";
 }
 
@@ -138,7 +120,11 @@ function ToMultiArr(v1, v2, html_arr){
 
 function reflect_html_element(html_ar, page_idx){
 
+    console.log(html_ar);
+    console.log(page_idx);
+
     const current_ht = html_ar[page_idx];
+    console.log(current_ht);
 
     let comp = current_ht.reduce(function(x, y){
         return x + y;
@@ -165,6 +151,12 @@ function reflect_btn(max_page){
     let text = null;
     let arr = range(max_page + 1);
 
+    let div_btn = document.createElement("div");
+    div_btn.id = "btn_target";
+    target.after(div_btn);
+
+    const btn_target = document.getElementById("btn_target");
+
     arr.map(function(idx){
 
       if(idx === arr.length - 1){
@@ -173,7 +165,7 @@ function reflect_btn(max_page){
           text = `page ${idx + 1}`;
       }
 
-      let tag = `<div class = "col-2 mb-2 mr-2 btn btn-primary page ">${text}</div>`;  
+      let tag = `<div class = "col-2 mb-2 mr-2 btn btn-primary page bottom_btn ">${text}</div>`;  
       btn_target.insertAdjacentHTML("beforeend", tag);  
 
     });
@@ -280,6 +272,8 @@ const POST_score = async (score_wrong, ques_data) => {
 
 const get_parts = async () => {
 
+    const window_width = window.innerWidth;
+
     const ques = await fetch("name_reaction/ques")
     .then (res => {
         return res.json();
@@ -287,19 +281,27 @@ const get_parts = async () => {
         console.log(err);
     });
 
+    console.log(ques);
+
 
     const html_arr = [];
     const answer_arr = [];
 
     ques.map((value, index) => {
 
-        let scheme = `<img class ="scheme" src = '${value.scheme_path}'>`;
+        let scheme = `<img class ="scheme" src = '${value.scheme}'>`;
         let select_array = value.selections;
+        let sentence = value.ques_type;
+         
         select_array = select_array.map((val_2) => {
-            return `<img class ='sel border col-3  mb-2 sel_No${index + 1} ' src = ${val_2}>`;
+            if(window_width > 480){
+                return `<img class ='sel border col-3  mb-2 sel_No${index + 1} ' src = ${val_2}>`;
+            } else {
+                return `<img class ='sel border col-6  mb-2 sel_No${index + 1} ' src = ${val_2}>`;               
+            }
         });
 
-        const HTML = createHTML(scheme, select_array, index);
+        const HTML = createHTML(scheme, select_array, index, sentence);
         html_arr.push(HTML);
         answer_arr.push(value.answer_idx);
 
@@ -313,7 +315,6 @@ const get_parts = async () => {
         for(i=1; i<31; i++){
             recognize_sel(i,e);
         }
-        console.log(answer_set);
     });
 
     btn_target.addEventListener("click",(e) => page_href(e, display_html, answer_arr, ques));
